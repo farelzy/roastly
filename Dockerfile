@@ -1,29 +1,29 @@
-# Gunakan PHP 8.3 dengan Apache
+# Gunakan PHP 8.3 + Apache
 FROM php:8.3-apache
 
-# Install dependensi sistem dan ekstensi PHP
+# Install ekstensi PHP yang dibutuhkan Laravel
 RUN apt-get update && apt-get install -y \
-    git unzip zip curl \
-    libpng-dev libjpeg-dev libfreetype6-dev \
-    libonig-dev libxml2-dev libzip-dev \
-    && docker-php-ext-install pdo_mysql zip mbstring exif pcntl
+    git zip unzip curl libpng-dev libonig-dev libxml2-dev libzip-dev \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 
-# Install Composer (resmi dari image composer)
+# Aktifkan mod_rewrite Apache
+RUN a2enmod rewrite
+
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Salin source code Laravel ke direktori kerja
+# Copy semua file ke dalam container
 COPY . /var/www/html
 
-# Set direktori kerja
+# Set working directory
 WORKDIR /var/www/html
 
-# Set permission agar Apache bisa akses
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Set permission
+RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
-# Salin dan izinkan start.sh
+# Copy start.sh dan buat bisa dijalankan
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Jalankan Laravel pakai script
-CMD ["sh", "/start.sh"]
+# Jalankan start.sh saat container dijalankan
+CMD ["/start.sh"]

@@ -1,17 +1,13 @@
 #!/bin/bash
 
-echo "🛠️ Starting Laravel in Docker..."
-
-if [ ! -f .env ]; then
-    echo "📄 Copying .env.example to .env"
-    cp .env.example .env
-fi
-
+# Jalankan migration dan seed
 composer install --no-interaction --prefer-dist --optimize-autoloader
 
-php artisan key:generate
+php artisan config:clear
+php artisan config:cache
 
 php artisan migrate --force
 php artisan db:seed --force
 
+# Start apache
 apache2-foreground
