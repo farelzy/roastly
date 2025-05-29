@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'lalaa@example.com',
+            'email' => 'lal@example.com',
         ]);
 
         // Admin user
         User::create([
             'name' => 'Admin',
-            'email' => 'haiiiii@toko.com',
+            'email' => 'haiiii@toko.com',
             'password' => Hash::make('123'), // Ganti password ini 
             'email_verified_at' => now(),
             'role' => 'admin',
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         // Pelanggan user
         User::create([
             'name' => 'agnes',
-            'email' => 'agnes@gmail.com',
+            'email' => 'agness@gmail.com',
             'password' => Hash::make('123'), // Ganti password ini 
             'email_verified_at' => now(),
             'role' => 'costumer',
