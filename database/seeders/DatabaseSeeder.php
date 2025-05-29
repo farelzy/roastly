@@ -16,13 +16,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->updateOrInsert([
+        User::factory()->create([
             'name' => 'Test User',
             'email' => 'lala@example.com',
         ]);
 
         // Admin user
-        User::updateOrInsert([
+        User::create([
             'name' => 'Admin',
             'email' => 'haiiiii@toko.com',
             'password' => Hash::make('123'), // Ganti password ini 
