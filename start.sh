@@ -1,13 +1,15 @@
 #!/bin/bash
 
-# Jalankan migration dan seed
+# Install dependency
 composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Laravel config
 php artisan config:clear
 php artisan config:cache
 
-php artisan migrate
-php artisan db:seed
+# Migrate dan seeding pakai --force
+php artisan migrate --force
+php artisan db:seed --force
 
 # Start apache
 apache2-foreground
