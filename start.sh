@@ -6,7 +6,7 @@ php artisan config:cache
 
 # Migrate dan seed
 php artisan migrate --force
-php artisan db:seed --force
+php artisan db:seed --force || true
 
-# Start Apache
-apache2-foreground
+# Start Apache (penting: pakai exec!)
+exec apache2-foreground
